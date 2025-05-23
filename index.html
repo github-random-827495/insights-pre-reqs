@@ -664,8 +664,8 @@
                     <h2>Okta</h2>
                     <span class="chevron">›</span>
                     <div class="section-checkbox-wrapper">
-                        <input type="checkbox" data-section-checkbox="true" id="section-azure" onchange="toggleSectionCheckboxes(this)">
-                        <label for="section-azure">Completed</label>
+                        <input type="checkbox" data-section-checkbox="true" id="section-okta" onchange="toggleSectionCheckboxes(this)">
+                        <label for="section-okta">Completed</label>
                     </div>
                 </div>
                 <div class="section-content">
@@ -681,7 +681,114 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+
+            <div class="section">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <h2>PingOne</h2>
+                    <span class="chevron">›</span>
+                    <div class="section-checkbox-wrapper">
+                        <input type="checkbox" data-section-checkbox="true" id="section-ping" onchange="toggleSectionCheckboxes(this)">
+                        <label for="section-ping">Completed</label>
                     </div>
+                </div>
+                <div class="section-content">
+                    <div class="requirement critical">
+                        <h3>
+                            Base Requirements
+                            <span class="badge critical">Critical</span>
+                        </h3>
+                        <div class="checklist">
+                            <div class="checklist-item">
+                                <input type="checkbox" id="ping1" data-type="critical" onchange="updateProgress()">
+                                <label for="ping1"> Administrator privileges for Connector setup. Connector is read-only after configuration.</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <h2>Amazon Web Services</h2>
+                    <span class="chevron">›</span>
+                    <div class="section-checkbox-wrapper">
+                        <input type="checkbox" data-section-checkbox="true" id="section-aws" onchange="toggleSectionCheckboxes(this)">
+                        <label for="section-aws">Completed</label>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="requirement critical">
+                        <h3>
+                            Base Requirements
+                            <span class="badge critical">Critical</span>
+                        </h3>
+                        <div class="checklist">
+                            <div class="checklist-item">
+                                <input type="checkbox" id="aws1" data-type="critical" onchange="updateProgress()">
+                                <label for="aws1">Ability to create IAM Roles and Policies in your AWS Management Account</label>
+                            </div>
+                        </div>
+                        <div class="checklist">
+                            <div class="checklist-item">
+                                <input type="checkbox" id="aws2" data-type="critical" onchange="updateProgress()">
+                                <label for="aws2">Familiarity with AWS CloudFormation and CloudTrail services</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <h2>Google Cloud Platform</h2>
+                    <span class="chevron">›</span>
+                    <div class="section-checkbox-wrapper">
+                        <input type="checkbox" data-section-checkbox="true" id="section-gcp" onchange="toggleSectionCheckboxes(this)">
+                        <label for="section-gcp">Completed</label>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="requirement critical">
+                        <h3>
+                            Base Requirements
+                            <span class="badge critical">Critical</span>
+                        </h3>
+                        <div class="checklist">
+                            <div class="checklist-item">
+                                <input type="checkbox" id="gcp1" data-type="critical" onchange="updateProgress()">
+                                <label for="gcp1">Ability to create a Service Account within your Google Cloud Platform either manually, via the Google Cloud Console or via a script provided by BeyondTrust</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <h2>GitHub</h2>
+                    <span class="chevron">›</span>
+                    <div class="section-checkbox-wrapper">
+                        <input type="checkbox" data-section-checkbox="true" id="section-github" onchange="toggleSectionCheckboxes(this)">
+                        <label for="section-github">Completed</label>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="requirement critical">
+                        <h3>
+                            Base Requirements
+                            <span class="badge critical">Critical</span>
+                        </h3>
+                        <div class="checklist">
+                            <div class="checklist-item">
+                                <input type="checkbox" id="github1" data-type="critical" onchange="updateProgress()">
+                                <label for="github1">GitHub organization owner permissions to install the connector. Connector is read-only after configuration.</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
