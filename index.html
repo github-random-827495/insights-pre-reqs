@@ -394,7 +394,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>BeyondTrust - Identity Security Insights</h1>
+            <h1>Identity Security Insights Pre-Installation Requirements Checklist</h1>
             <p>Ensure your environment is ready for Identity Security Insights configuration</p>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
@@ -424,7 +424,7 @@
 
             <div class="section">
                 <div class="section-header" onclick="toggleSection(this)">
-                    <h2>💻 Active Directory Connector</h2>
+                    <h2>Active Directory Connector</h2>
                     <span class="chevron">›</span>
                     <div class="section-checkbox-wrapper">
                         <input type="checkbox" data-section-checkbox="true" id="section-ad-connector" onchange="toggleSectionCheckboxes(this)">
@@ -499,7 +499,9 @@
                             </details>
 
                             <details class="nested-dropdown">
-                                <summary>Password Auditing Service Account</summary>
+                                <summary>
+                                    Password Auditing Service Account
+                                                                   </summary>
                                 <div class="nested-content">
                                     <div class="checklist-item">
                                         <input type="checkbox" id="invAuditBP1" data-type="critical" onchange="updateProgress()">
@@ -521,7 +523,7 @@
                     <div class="requirement critical">
                         <h3>
                             Active Directory Certificate Services
-                            <span class="badge critical">Critical</span>
+                            <span class="badge recommended">Recommended</span>
                         </h3>
                         <div class="checklist">
                             <details class="nested-dropdown">
@@ -636,7 +638,7 @@
                 <div class="section-content">
                     <div class="requirement critical">
                         <h3>
-                            Configuration
+                            Base Requirements
                             <span class="badge critical">Critical</span>
                         </h3>
                         <div class="checklist">
@@ -651,6 +653,31 @@
                             <div class="checklist-item">
                                 <input type="checkbox" id="ent3" data-type="critical" onchange="updateProgress()">
                                 <label for="ent3">Global Administrator privileges for Connector setup. Connector is read-only after configuration.</label>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <h2>Okta</h2>
+                    <span class="chevron">›</span>
+                    <div class="section-checkbox-wrapper">
+                        <input type="checkbox" data-section-checkbox="true" id="section-azure" onchange="toggleSectionCheckboxes(this)">
+                        <label for="section-azure">Completed</label>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="requirement critical">
+                        <h3>
+                            Base Requirements
+                            <span class="badge critical">Critical</span>
+                        </h3>
+                        <div class="checklist">
+                            <div class="checklist-item">
+                                <input type="checkbox" id="okta1" data-type="critical" onchange="updateProgress()">
+                                <label for="okta1">Super Administrator privileges for Connector setup. Connector is read-only after configuration.</label>
                             </div>
                         </div>
                     </div>
