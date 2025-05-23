@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeyondTrust - Identity Security Insights Pre-Installation Requirements Checklist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* (Your existing CSS here, no changes needed for this specific move) */
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body and Overall Container Styling */
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            line-height: 1.6;
+            color: #e2e8f0; /* Light gray for general text */
+            background: #0f172a; /* Dark background similar to BeyondTrust site */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #1a202c; /* Darker content background */
+            min-height: 100vh;
+            box-shadow: 0 0 30px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Styling */
+        .header {
+            background: #1a202c; /* Solid dark background */
+            color: white;
+            padding: 2rem;
+            text-align: left; /* Aligned left for more modern feel */
+            border-bottom: 1px solid #2d3748; /* Subtle border */
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600; /* Slightly bolder */
+            color: #f8f8f8;
+        }
+
+        .header p {
+            font-size: 1rem;
+            opacity: 0.8;
+            color: #a0aec0;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            background: #2d3748; /* Darker background for the bar */
+            height: 6px;
+            margin-top: 1.5rem;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: #ff5500; /* BeyondTrust orange */
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 3px;
+        }
+
+        /* Main Content Area */
+        .content {
+            padding: 2rem;
+            flex-grow: 1; /* Allows content to take up available space */
+        }
+
+        /* Section Styling (Accordion) */
+        .section {
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #2d3748; /* Subtle border for sections */
+        }
+
+        .section-header {
+            background: #2d3748; /* Darker background for header */
+            padding: 1.2rem 1.5rem;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-header:hover {
+            background: #3a4348; /* Slightly lighter on hover */
+        }
+
+        .section-header h2 {
+            font-size: 1.2rem;
+            color: #f8f8f8; /* Light color for titles */
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 600;
+        }
+
+        .section-content {
+            padding: 1.5rem;
+            display: none;
+            background: #1a202c; /* Matches container background */
+            border-top: 1px solid #2d3748; /* Separator for content */
+        }
+
+        .section.active .section-content {
+            display: block;
+        }
+
+        /* Requirement Cards */
+        .requirement {
+            background: #2d3748; /* Darker card background */
+            padding: 1.2rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            border-left: 4px solid #4a5568; /* Default border */
+            transition: all 0.3s ease;
+        }
+
+        /* Specific Requirement Types */
+        .requirement.critical {
+            border-left-color: #ff5500; /* BeyondTrust orange */
+            background: #272d3a;
+        }
+
+        .requirement.recommended {
+            border-left-color: #ecc94b; /* Yellowish */
+            background: #272d3a;
+        }
+
+        .requirement.optional {
+            border-left-color: #4299e1; /* Blue */
+            background: #272d3a;
+        }
+
+        .requirement h3 {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #f8f8f8;
+            font-weight: 600;
+        }
+
+        /* Badges */
+        .badge {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge.critical { background: #ff5500; }
+        .badge.recommended { background: #ecc94b; }
+        .badge.optional { background: #4299e1; }
+
+        /* Checklist Styling */
+        .checklist {
+            margin-top: 1rem;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin: 0.75rem 0;
+            padding: 0.6rem;
+            border-radius: 6px;
+            transition: background 0.2s ease;
+            color: #e2e8f0;
+        }
+
+        .checklist-item:hover {
+            background: #3a4348; /* Subtle hover effect */
+        }
+
+        .checklist-item input[type="checkbox"] {
+            margin-top: 0.25rem;
+            transform: scale(1.1);
+            accent-color: #ff5500; /* BeyondTrust orange for checkboxes */
+            cursor: pointer;
+        }
+
+        .checklist-item label {
+            cursor: pointer;
+            flex: 1;
+            color: #e2e8f0; /* Light text color */
+        }
+
+        .chevron {
+            transition: transform 0.3s ease;
+            margin-left: auto;
+            font-size: 1.2rem;
+            color: #a0aec0; /* Lighter chevron */
+        }
+
+        .section.active .chevron {
+            transform: rotate(90deg);
+        }
+
+        /* Nested Dropdown (details/summary) Styling */
+        .nested-dropdown {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            background: #1a202c; /* Slightly lighter than the parent requirement */
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid #2d3748;
+        }
+
+        .nested-dropdown summary {
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            background: #2d3748; /* Darker background for the summary bar */
+            color: #f8f8f8;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            list-style: none; /* Hides default triangle */
+            position: relative; /* For custom arrow */
+            transition: background 0.2s ease;
+        }
+
+        .nested-dropdown summary:hover {
+            background: #3a4348; /* Hover effect */
+        }
+
+        /* Custom arrow for summary */
+        .nested-dropdown summary::before {
+            content: '›'; /* Unicode right arrow */
+            font-size: 1.2em;
+            margin-right: 0.75rem;
+            transition: transform 0.2s ease;
+            transform: rotate(0deg); /* Initial state */
+            color: #a0aec0; /* Lighter chevron */
+        }
+
+        .nested-dropdown[open] summary::before {
+            transform: rotate(90deg); /* Rotates when open */
+        }
+
+        .nested-content {
+            padding: 0.5rem 1rem;
+            background: #1a202c; /* Matches container background */
+            border-top: 1px solid #2d3748; /* Separator */
+        }
+
+        /* Adjust checklist items within nested dropdowns */
+        .nested-content .checklist-item {
+            margin: 0.5rem 0;
+            padding: 0.4rem;
+            background: #1a202c; /* Ensure consistent background */
+        }
+
+        .nested-content .checklist-item:hover {
+            background: #272d3a; /* Slightly darker hover for nested items */
+        }
+
+        /* Overview Section */
+        .overview {
+            background: #2d3748; /* Darker background for overview */
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border: 1px solid #4a5568; /* Subtle border */
+        }
+
+        .overview h2 {
+            color: #f8f8f8;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .overview-item {
+            text-align: center;
+            padding: 1rem;
+            background: #1a202c; /* Matches main container */
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            color: #e2e8f0;
+        }
+
+        .overview-item .number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ff5500; /* BeyondTrust orange */
+            margin-bottom: 0.25rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a202c; /* Matches container background */
+            color: #a0aec0; /* Lighter gray for footer text */
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            border-top: 1px solid #2d3748; /* Subtle top border */
+            margin-top: auto; /* Pushes footer to the bottom */
+        }
+
+        /* Contact Info - now positioned at the bottom */
+        .contact-info {
+            background: #2d3748; /* Darker background */
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 2rem; /* Added horizontal margin to match content padding */
+            border: 1px solid #4a5568;
+            color: #e2e8f0;
+        }
+
+        .contact-info h3 {
+            color: #f8f8f8;
+            margin-bottom: 0.75rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.5rem;
+            color: #a0aec0;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .header {
+                padding: 1.5rem 1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .content {
+                padding: 1rem;
+            }
+            
+            .overview-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                margin: 1rem 1rem; /* Adjust margin for smaller screens */
+            }
+        }
+
+        /* Completed Checklist Item Visual */
+        .completed-item {
+            color: #64748b; /* Fades the text slightly */
+            /* Removed text-decoration: line-through; for a cleaner look */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>BeyondTrust - Identity Security Insights</h1>
+            <p>Ensure your environment is ready for Identity Security Insights configuration</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="overview">
+                <h2>📋 Preparation Overview</h2>
+                <p>Before installing BeyondTrust Identity Security Insights, please review and complete the requirements below. This will ensure a smooth installation process and optimal performance.</p>
+                
+                <div class="overview-grid">
+                    <div class="overview-item">
+                        <div class="number" id="criticalCount">0</div>
+                        <div>Critical Requirements</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="number" id="recommendedCount">0</div>
+                        <div>Recommended Items</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="number">15</div>
+                        <div>Minutes to Complete</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <h2>💻 Active Directory Connector</h2>
+                    <span class="chevron">›</span>
+                </div>
+
+                <div class="section-content">
+                    <div class="requirement critical">
+                        <h3>
+                            Server Specifications
+                            <span class="badge critical">Critical</span>
+                        </h3>
+                        <div class="checklist">
+                            <div class="checklist-item">
+                                <input type="checkbox" id="ss1" data-type="critical" onchange="updateProgress()">
+                                <label for="ss1">Domain Joined Windows Server</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="ss2" data-type="critical" onchange="updateProgress()">
+                                <label for="ss2">Windows Server 2016 or later</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="requirement critical">
+                        <h3>
+                            Hardware Specifications
+                            <span class="badge critical">Critical</span>
+                        </h3>
+                        <div class="checklist">
+                            <div class="checklist-item">
+                                <input type="checkbox" id="hw1" data-type="critical" onchange="updateProgress()">
+                                <label for="hw1">Minimum 16GB RAM</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="hw2" data-type="critical" onchange="updateProgress()">
+                                <label for="hw2">At least 50GB free disk space</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="hw3" data-type="critical" onchange="updateProgress()">
+                                <label for="hw3">Dual-core processor (2.0GHz or faster)</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="requirement critical">
+                        <h3>
+                            Active Directory Service Accounts
+                            <span class="badge critical">Critical</span>
+                        </h3>
+                        <div class="checklist">
+                            <details class="nested-dropdown">
+                                <summary>Core Service Account</summary>
+                                <div class="nested-content">
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="invAuditPerm1" data-type="critical" onchange="updateProgress()">
+                                        <label for="invAuditPerm1">Member of Active Directory Group: <b>Domain User Group</b></label>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="invAuditPerm2" data-type="critical" onchange="updateProgress()">
+                                        <label for="invAuditPerm2">Member of Active Directory Group: <b>Event Log Reader Group</b></label>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="invAuditPerm3" data-type="critical" onchange="updateProgress()">
+                                        <label for="invAuditPerm3">Read Access to ADCS Registry Keys: 
+                                            <p>- SYSTEM\\CurrentControlSet\\Services\\CertSvc\Configuration\\{servername}\\PolicyModules\\CertificateAuthority_MicrosoftDefault.Policy</p>
+                                            <p>- SYSTEM\\CurrentControlSet\\Services\\CertSvc\\Configuration\\{servername}</p>
+                                        </label>
+                                    </div>
+                                </div>
+                            </details>
+
+                            <details class="nested-dropdown">
+                                <summary>Password Auditing Service Account</summary>
+                                <div class="nested-content">
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="invAuditBP1" data-type="critical" onchange="updateProgress()">
+                                        <label for="invAuditBP1">Domain Object Permissions: <b>DS-Replication-Get-Changes</b></label>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="invAuditBP2" data-type="critical" onchange="updateProgress()">
+                                        <label for="invAuditBP2">Domain Object Permissions: <b>Replicating Directory Changes All</b></label>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="invAuditBP3" data-type="critical" onchange="updateProgress()">
+                                        <label for="invAuditBP3">Domain Object Permissions: <b>Replicating Directory Changes in Filtered Set</b></label>
+                                    </div>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+
+                    <div class="requirement critical">
+                        <h3>
+                            Active Directory Certificate Services
+                            <span class="badge critical">Critical</span>
+                        </h3>
+                        <div class="checklist">
+                            <details class="nested-dropdown">
+                                <summary>Configuration</summary>
+                                <div class="nested-content">
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="certSvcPerm1" data-type="critical" onchange="updateProgress()">
+                                        <label for="certSvcPerm1">Ensure Audit Certification Services logs both <b>Success</b> and <b>Failure</b> events</label>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="certSvcPerm2" data-type="critical" onchange="updateProgress()">
+                                        <label for="certSvcPerm2">Ensure <b>"Issue and manage certificate requests"</b> is enabled under the CA audit filter properties</label>
+                                    </div>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+
+                    <div class="requirement critical">
+                        <h3>
+                            Network Connectivity
+                            <span class="badge critical">Critical</span>
+                        </h3>
+                        <div class="checklist">
+                            <details class="nested-dropdown">
+                                <summary>Internal</summary>
+                                <div class="nested-content">
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="net1" data-type="critical" onchange="updateProgress()">
+                                        <label for="net1">Connect to Active Directory using SSL and TCP 636</label>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="net2" data-type="critical" onchange="updateProgress()">
+                                        <label for="net2">Connect to Domain Controllers using COM+ Network Access (DCOM-In)</label>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="net3" data-type="critical" onchange="updateProgress()">
+                                        <label for="net3">Connect to Domain Controllers using Remote Event Log Management (NP-In)</label>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="net4" data-type="critical" onchange="updateProgress()">
+                                        <label for="net4">Connect to Domain Controllers using Remote Event Log Management (RPC)</label>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="net5" data-type="critical" onchange="updateProgress()">
+                                        <label for="net5">Connect to Domain Controllers using Remote Event Log Management (RPC-EPMAP)</label>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="net6" data-type="critical" onchange="updateProgress()">
+                                        <label for="net6">Connect to Domain Controllers using Windows Management Instrumentation (ASync-In)</label>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="net7" data-type="critical" onchange="updateProgress()">
+                                        <label for="net7">Connect to Domain Controllers using Windows Management Instrumentation (DCOM-In)</label>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="net8" data-type="critical" onchange="updateProgress()">
+                                        <label for="net8">Connect to Domain Controllers using Windows Management Instrumentation (WMI-In)</label>
+                                    </div>
+                                </div>
+                            </details>
+
+                            <details class="nested-dropdown">
+                                <summary>External</summary>
+                                <div class="nested-content">
+                                    
+                                    <details class="nested-dropdown">
+                                        <summary>United States</summary>
+                                        <div class="nested-content">
+                                            <div class="checklist-item">
+                                                <input type="checkbox" id="netus1" data-type="critical" onchange="updateProgress()">
+                                                <label for="netus1">Port 443 (HTTPS) to https://login.beyondtrust.com</label>
+                                            </div>
+                                            <div class="checklist-item">
+                                                <input type="checkbox" id="netus2" data-type="critical" onchange="updateProgress()">
+                                                <label for="netus2">Port 443 (HTTPS) to https://ingest.beyondtrust.io</label>
+                                            </div>
+                                        </div>
+                                    </details>
+
+                                    <details class="nested-dropdown">
+                                        <summary>Europe</summary>
+                                        <div class="nested-content">
+                                            <div class="checklist-item">
+                                                <input type="checkbox" id="netemea1" data-type="critical" onchange="updateProgress()">
+                                                <label for="netemea1">Port 443 (HTTPS) to https://login.beyondtrust.com</label>
+                                            </div>
+                                            <div class="checklist-item">
+                                                <input type="checkbox" id="netemea2" data-type="critical" onchange="updateProgress()">
+                                                <label for="netemea2">Port 443 (HTTPS) to https://ingest.eu-insights-01.beyondtrust.io</label>
+                                            </div>
+                                        </div>
+                                    </details>
+
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <h2>Microsoft Azure (Entra ID)</h2>
+                    <span class="chevron">›</span>
+                </div>
+                <div class="section-content">
+                    <div class="requirement critical">
+                        <h3>
+                            Configuration
+                            <span class="badge critical">Critical</span>
+                        </h3>
+                        <div class="checklist">
+                            <div class="checklist-item">
+                                <input type="checkbox" id="ent1" data-type="critical" onchange="updateProgress()">
+                                <label for="ent1">Auditing enabled in Azure. See Microsoft's Audit documentation for more information and procedures.</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="ent2" data-type="critical" onchange="updateProgress()">
+                                <label for="ent2">Minimum Microsoft Entra ID P1 License</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="ent3" data-type="critical" onchange="updateProgress()">
+                                <label for="ent3">Global Administrator privileges for Connector setup. Connector is read-only after configuration.</label>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+
+        </div>
+
+        <div class="contact-info">
+            <h3>Need Help?</h3>
+            <p>If you have questions about any of these requirements, our support team is here to help:</p>
+            <p><strong>Email:</strong> <a href="mailto:support@beyondtrust.com" style="color: #ff5500;">support@beyondtrust.com</a></p>
+            <p><strong>Phone:</strong> +1-800-BeyondTrust</p>
+            <p><strong>Support Portal:</strong> <a href="https://www.beyondtrust.com/support" target="_blank" style="color: #ff5500;">beyondtrust.com/support</a></p>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2024 BeyondTrust. All rights reserved.</p>
+            <p>This document was last updated on May 23, 2025</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleSection(header) {
+            const section = header.parentElement;
+            section.classList.toggle('active');
+        }
+
+        function updateProgress() {
+            // Select all checkboxes on the page
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            
+            // Calculate overall progress
+            const progress = (checkboxes.length > 0) ? (checkedBoxes.length / checkboxes.length) * 100 : 0;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            // Update counts for Critical and Recommended categories
+            let criticalCompleted = 0;
+            let criticalTotal = 0;
+            let recommendedCompleted = 0;
+            let recommendedTotal = 0;
+            let optionalCompleted = 0; // Added for completeness, though not displayed in overview
+            let optionalTotal = 0;
+
+            checkboxes.forEach(checkbox => {
+                const label = checkbox.nextElementSibling;
+                if (checkbox.checked) {
+                    label.classList.add('completed-item');
+                } else {
+                    label.classList.remove('completed-item');
+                }
+
+                // Count based on data-type attribute
+                if (checkbox.dataset.type === 'critical') {
+                    criticalTotal++;
+                    if (checkbox.checked) {
+                        criticalCompleted++;
+                    }
+                } else if (checkbox.dataset.type === 'recommended') {
+                    recommendedTotal++;
+                    if (checkbox.checked) {
+                        recommendedCompleted++;
+                    }
+                } else if (checkbox.dataset.type === 'optional') {
+                    optionalTotal++;
+                    if (checkbox.checked) {
+                        optionalCompleted++;
+                    }
+                }
+            });
+
+            // Display "X of Y" for critical and recommended
+            document.getElementById('criticalCount').textContent = `${criticalCompleted} / ${criticalTotal}`;
+            document.getElementById('recommendedCount').textContent = `${recommendedCompleted} / ${recommendedTotal}`;
+            // If you want to display optional count as well, add an element for it
+        }
+
+        // Initialize progress and counts on page load
+        document.addEventListener('DOMContentLoaded', updateProgress);
+    </script>
+</body>
+</html>
