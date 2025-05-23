@@ -111,6 +111,20 @@
             font-weight: 600;
         }
 
+        .section-header .section-checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: 1rem; /* Adjust as needed */
+        }
+
+        .section-header input[type="checkbox"] {
+            transform: scale(1.1);
+            accent-color: #ff5500; /* BeyondTrust orange for checkboxes */
+            cursor: pointer;
+            z-index: 10; /* Ensure checkbox is clickable */
+        }
+        
         .section-content {
             padding: 1.5rem;
             display: none;
@@ -412,6 +426,10 @@
                 <div class="section-header" onclick="toggleSection(this)">
                     <h2>💻 Active Directory Connector</h2>
                     <span class="chevron">›</span>
+                    <div class="section-checkbox-wrapper">
+                        <input type="checkbox" data-section-checkbox="true" id="section-ad-connector" onchange="toggleSectionCheckboxes(this)">
+                        <label for="section-ad-connector">Completed</label>
+                    </div>
                 </div>
 
                 <div class="section-content">
@@ -610,6 +628,10 @@
                 <div class="section-header" onclick="toggleSection(this)">
                     <h2>Microsoft Azure (Entra ID)</h2>
                     <span class="chevron">›</span>
+                    <div class="section-checkbox-wrapper">
+                        <input type="checkbox" data-section-checkbox="true" id="section-azure" onchange="toggleSectionCheckboxes(this)">
+                        <label for="section-azure">Completed</label>
+                    </div>
                 </div>
                 <div class="section-content">
                     <div class="requirement critical">
@@ -653,14 +675,26 @@
 
     <script>
         function toggleSection(header) {
-            const section = header.parentElement;
-            section.classList.toggle('active');
+            // Prevent section header click from toggling checkbox
+            if (event.target.type !== 'checkbox' && event.target.tagName !== 'LABEL') {
+                const section = header.parentElement;
+                section.classList.toggle('active');
+            }
+        }
+
+        function toggleSectionCheckboxes(sectionCheckbox) {
+            const section = sectionCheckbox.closest('.section');
+            const childCheckboxes = section.querySelectorAll('input[type="checkbox"]:not([data-section-checkbox="true"])');
+            childCheckboxes.forEach(checkbox => {
+                checkbox.checked = sectionCheckbox.checked;
+            });
+            updateProgress(); // Update overall progress and counts
         }
 
         function updateProgress() {
-            // Select all checkboxes on the page
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            // Select all checkboxes on the page, excluding section-level checkboxes
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]:not([data-section-checkbox="true"])');
+            const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:not([data-section-checkbox="true"]):checked');
             
             // Calculate overall progress
             const progress = (checkboxes.length > 0) ? (checkedBoxes.length / checkboxes.length) * 100 : 0;
@@ -705,6 +739,24 @@
             document.getElementById('criticalCount').textContent = `${criticalCompleted} / ${criticalTotal}`;
             document.getElementById('recommendedCount').textContent = `${recommendedCompleted} / ${recommendedTotal}`;
             // If you want to display optional count as well, add an element for it
+
+            // Update section-level checkboxes
+            document.querySelectorAll('.section').forEach(section => {
+                const sectionCheckbox = section.querySelector('input[data-section-checkbox="true"]');
+                if (sectionCheckbox) {
+                    const sectionChildCheckboxes = section.querySelectorAll('input[type="checkbox"]:not([data-section-checkbox="true"])');
+                    const allChecked = Array.from(sectionChildCheckboxes).every(cb => cb.checked);
+                    const anyChecked = Array.from(sectionChildCheckboxes).some(cb => cb.checked);
+
+                    if (sectionChildCheckboxes.length > 0) {
+                        sectionCheckbox.checked = allChecked;
+                        sectionCheckbox.indeterminate = !allChecked && anyChecked;
+                    } else {
+                        sectionCheckbox.checked = false;
+                        sectionCheckbox.indeterminate = false;
+                    }
+                }
+            });
         }
 
         // Initialize progress and counts on page load
